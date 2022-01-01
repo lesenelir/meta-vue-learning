@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue实例</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <!--   data中的数据都是响应式的   -->
+      {{tData}}
+      <br>
+      {{tData.a}}
+      <!--{{b}}-->
+
+      <hr>
+      <p>以下对象修改不会改变页面，该data数据不是响应式数据</p>
+      {{obj}}
+
+      <hr>
+    </div>
+
+
+    <script>
+
+      let tData = {a: 1}
+
+      // Object.freeze 控制响应系统无法追踪
+      let obj = {foo: 'bar'}
+      Object.freeze(obj)
+
+      let vm = new Vue({
+        el: '#app',
+        data: {
+          tData,
+          obj
+        },
+        // 生命周期钩子函数 ---- 在vue对象生命周期过程的不同阶段添加自己的代码
+        create: function () {
+          console.log('a is:' + this.a)
+        }
+      })
+
+      // 自定义变量不会显示在页面上
+      // vm.b = 'hi'
+
+      // $前缀， 暴露有用的实例 property 与方法
+      // 通过$前缀，可以与用户定义的 property区分
+      vm.$el = document.getElementById('app')
+
+      // $watch 属性  , 观察变量的变化，得到变化前和变化后的情况
+      // 不要在选项 property 或回调上使用箭头函数
+      vm.$watch('a', function (newValue, oldValue) {
+        console.log(oldValue, newValue)
+      })
+      vm.$data.a = 'hi'
+
+    </script>
+
+
+  </body>
+</html>

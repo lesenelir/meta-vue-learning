@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>模版语法-差值</title>
+    <script src="../resources/vue.js"></script>
+    <style>
+      .red {
+        color: red;
+      }
+
+      .blue {
+        color: blue;
+        font-size: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- v-once 不能进行data数据的更改 -->
+      <p v-once>{{name}}</p>
+      <hr>
+
+      <!-- v-html 进行html标签的渲染 -->
+      <p>Using mustaches: {{ rawHtml }} </p>
+      <p>Using v-html: <span v-html="rawHtml"></span></p>
+      <hr>
+
+      <!--  v-bind 添加样式，按钮点击切换样式  -->
+      <p v-bind:class="className">Test 样式</p>
+      <button @click="changeClassName">点击切换样式</button>
+      <hr>
+
+      <!-- 双大括号内的语句是JS表达式 -->
+      <p>Vue双大括号里的内容是一个JS表达式</p>
+      <p>{{number + 10}}</p>
+      <p>{{ok ? 'True' : 'False'}}</p>
+      <p>{{name.split('').reverse().join('')}}</p>
+      <hr>
+
+    </div>
+
+    <script>
+
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          name: 'lesenelir',
+          rawHtml: '<span style="color: red"> this is should be red</span>',
+          className: 'red',
+          number: 1,
+          ok: true,
+        },
+        methods: {
+          changeClassName: function () {
+            if (this.className === 'red') {
+              this.className = 'blue'
+            } else {
+              this.className = 'red'
+            }
+          }
+        }
+      })
+
+    </script>
+
+  </body>
+</html>

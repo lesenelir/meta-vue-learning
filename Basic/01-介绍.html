@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>第一个Vue实例</title>
+    <title>Vue介绍</title>
     <script src="../resources/vue.js"></script>
   </head>
   <body>
@@ -11,12 +11,12 @@
       <!-- 声明式阅览 -->
       {{message}}
 
-      <!-- 绑定属性元素，v-bind -->
+      <!-- v-bind 绑定属性元素 -->
       <p :title="message">
         鼠标悬停几秒钟查看此处动态绑定的提示信息！
       </p>
 
-      <!-- 条件 循环 -->
+      <!-- v-if 条件 -->
       <p v-if="seen">通过控制</p>
 
       <!--  v-for 循环整个列表  -->
@@ -35,12 +35,28 @@
         <input type="text" v-model="secondMessage">
       </label>
 
+      <!-- component 组件化开发 -->
+      <ol>
+        <!--   为todo-item组件提供todo对象变量     -->
+        <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+        >
+        </todo-item>
+      </ol>
+
     </div>
-
-
 
     <script>
 
+      // component 组件化开发
+      Vue.component('todo-item', {   // todo-item组件
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+      })
+
+      // Vue实例
       new Vue({
         el: '#app',
         data: {
@@ -51,7 +67,13 @@
             {text: '学习Vue'},
             {text: '学习整个项目'}
           ],
-          secondMessage: 'Hello,Vue.js !'
+          secondMessage: 'Hello,Vue.js !',
+          // component组件数据
+          groceryList: [
+            {id: 0, text: '蔬菜'},
+            {id: 1, text: '奶酪'},
+            {id: 2, text: '其他吃的东西'}
+          ]
         },
         methods: {
           reverseMessage: function () {

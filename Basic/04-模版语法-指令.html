@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>模版语法-指令</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+
+      <!--  v-bind 绑定元素的属性  -->
+      <p>v-bind 可以响应式的更新HTML中的属性attribute</p>
+      <a v-bind:href="url">Google</a>
+      <br>
+      <!-- <a v-bind:[attributeName]="url">Google</a> -->
+
+      <hr>
+
+      <!--  指令的修饰符   -->
+      <div @click="click1">
+        <div @click.stop="click2">
+          click me
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      // 指令是 v- 前缀开头的特殊属性
+      // 指令的值预期是，单个JS表达式
+      // 指令的指责是，单个JS表达式发生了改变，将产生影响，响应式作用于DOM
+      new Vue({
+        el: '#app',
+        data: {
+          url: 'www.google.com',
+          attributeName: "href"
+        },
+        methods: {
+          click1: function () {
+            console.log('click1........')
+          },
+          click2: function () {
+            console.log('click2........')
+          }
+        }
+      })
+
+    </script>
+
+  </body>
+</html>
