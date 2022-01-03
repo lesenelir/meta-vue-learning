@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+
+      <p>Original message: "{{ message }}"</p>
+      <p>Computed reversed message: "{{ reverseMessageComputed }}"</p>
+
+      <br>
+      <p>{{fullName}}</p>
+      <!--  调用计算属性直接用get方法    -->
+      <!--      <p>{{fullName.get}}</p>-->
+
+
+    </div>
+
+    <!--  计算属性是基于它们的响应式依赖进行缓存的  -->
+    <script>
+
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Computed',
+          firstName: 'Zhou',
+          lastName: 'Lesenelir'
+        },
+        // 计算属性，是基于它们的响应式依赖进行缓存的
+        // 意味着：计算属性在浏览器内是有缓存的，只要message内容不改变，就可以直接返回结果，不必要执行函数
+        computed: {
+          // 计算属性的getter
+          reverseMessageComputed: function () {
+            return this.message.split('').reverse().join('')
+          },
+          // 默认计算属性只有getter方法，可以指定setter放啊
+          fullName: {
+            get: function () {
+              return this.firstName + ' ' + this.lastName
+            },
+            set: function (newValue) {
+              let names = newValue.split(' ')
+              this.firstName[0]
+              this.lastName[names.length - 1]
+            }
+          }
+        },
+        // 侦听属性：观察、响应Vue内的数据变动
+        watch: {
+          // xxxx
+        }
+      })
+
+
+    </script>
+
+
+  </body>
+</html>

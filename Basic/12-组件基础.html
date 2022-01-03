@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>组件基础</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <!--  组件的复用，每个组件都维护自身的count  -->
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+
+      <!--  组件prop属性的使用    -->
+      <blog-post title="My journey with Vue"></blog-post>
+      <blog-post title="Blogging with Vue"></blog-post>
+      <blog-post title="Why Vue is so fun"></blog-post>
+      <hr>
+
+      <!--   有prop复用组件的方法   -->
+      <!--  可以使用v-bind动态传递prop -->
+      <blog-post
+        v-for="post in posts"
+        v-bind:key= "post.id"
+        v-bind:title = "post.title"
+      ></blog-post>
+      <hr>
+
+      <!--  监听子组件事件    -->
+      <div :style="{ fontSize: postFontSize + 'em' }">
+      <blog-post2
+              v-for="post in posts"
+              v-bind:key="post.id"
+              v-bind:post="post"
+              v-on:enlarge-text="postFontSize += 0.1"
+      ></blog-post2>
+    </div>
+
+    </div>
+
+    <script>
+      // 组件是可复用的Vue实例
+      // 全局组件注册：
+      Vue.component('button-counter', {
+        data: function () {   // 组件的data是一个函数，Vue实例的data是一个对象，如果组件的data是一个对象，可能会对组件复用的实例产生影响
+          return {
+            count: 0
+          }
+        },
+        template: '<button @click="count++">总共点击次数{{count}}</button>'
+      })
+
+      // 通过prop向子组件传递数据
+      // prop是在组件注册上的一些自定义属性
+      // 当一个值传递给一个 prop attribute 的时候，它就变成了那个组件实例的一个 property
+      Vue.component('blog-post', {
+        props: ['title'],
+        template: '<h3>{{title}}</h3>'
+      })
+
+      // 监听子组件事件
+      Vue.component('blog-post2', {
+        props: ['post'],
+        template: `
+          <div class="blog-post2">
+            <h3>{{ post.title }}</h3>
+            <button v-on:click="$emit('enlarge-text')">Enlarge text</button>
+            <div v-html="post.content"></div>
+          </div>
+        `,
+      })
+
+      new Vue({
+        el: '#app',
+        data: {
+          posts: [
+            { id: 1, title: 'My journey with Vue' },
+            { id: 2, title: 'Blogging with Vue' },
+            { id: 3, title: 'Why Vue is so fun' }
+          ],
+          postFontSize: 1
+        },
+        methods: {
+
+        }
+      })
+
+    </script>
+
+  </body>
+</html>

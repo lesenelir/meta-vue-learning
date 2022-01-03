@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>列表切换</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <!-- v-for遍历数组元素 -->
+      <!-- v-for 中通常与属性:key连用，以便跟踪每个结点的身份，从而重新排列现有元素，:key存储唯一的属性值     -->
+      <ul>
+        <li v-for="(item, index) in items" :key="index">
+          {{index}} - {{item.message}}
+        </li>
+      </ul>
+      <!-- v-for遍历对象元素 -->
+      <ul>
+        <li v-for="(value, key) in obj" :key="key">
+          {{key}} - {{value}}
+        </li>
+      </ul>
+
+
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          items: [
+            {message: 'Foo'},
+            {message: 'Boo'}
+          ],
+          obj: {
+            title: 'Vue Demo',
+            author: 'lesenelir',
+            publishedAt: '2022-01-03'
+          }
+        }
+      })
+
+    </script>
+
+  </body>
+</html>

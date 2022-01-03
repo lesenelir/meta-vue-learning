@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <div v-if="type === 'A' ">
+        A
+      </div>
+      <div v-else-if="type ===  'B' ">
+        B
+      </div>
+      <div v-else-if="type === 'C' ">
+        C
+      </div>
+      <div v-else>
+        Not A/B/C
+      </div>
+
+      <h1 v-show="ok">v-show 显示内容</h1>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          type: 'D',
+          // v-show 的元素会始终被渲染并被保存在DOM中，v-show只是简单的切换css中的display属性
+          // v-if 是“真正”的条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建
+          // Note： 高频切换时，使用v-show；低频切换时，使用v-if
+          ok: true
+        }
+      })
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>class与style绑定</title>
+    <script src="../resources/vue.js"></script>
+    <style>
+      .active {
+        background-color: red;
+      }
+      .green {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="app">
+      <!--  v-bind:class=""  对象模式    -->
+      <div    v-bind:class="{active: isActive, green: isGreen}"
+              style="width: 200px; height: 100px; text-align: center">
+        hi vue
+      </div>
+      <!--  v-bind:class=""  数组模式    -->
+<!--      <div    v-bind:class="[{active: isActive}, {green: isGreen}]"-->
+<!--              style="width: 200px; height: 100px; text-align: center">-->
+<!--        hi vue-->
+<!--      </div>-->
+
+      <!--   v-bind:style 绑定内联样式   -->
+      <div v-bind:style="{color: colorData, fontSize: fontSizeData}">
+
+        hi Vue
+      </div>
+
+<!--      <div v-bind:style="objStyle">-->
+
+<!--        hi Vue-->
+<!--      </div>-->
+
+    <script>
+      // 绑定样式是通过属性attribute绑定，所以可以用v-bind来绑定
+      // 绑定样式除了表达式字符串外，还可以是对象或是数组
+
+      new Vue({
+        el: '#app',
+        data: {
+          isActive: true,
+          isGreen: true,
+          colorData: 'blue',
+          fontSizeData: '50px',
+          // objStyle: {
+          //   colorData1: 'blue',
+          //   fontSizeData1: '50px',
+          // }
+        }
+      })
+
+    </script>
+
+  </body>
+</html>
