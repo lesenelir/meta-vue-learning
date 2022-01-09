@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>axios基本使用</title>
+    <script src="lib/axios.js"></script>
+  </head>
+  <body>
+
+    <button id="btnPost">发送POST请求</button>
+    <button id="btnGet">发送GET请求</button>
+
+
+    <script>
+
+      // 1. 发送GET请求
+      // 调用 axios 方法得到的返回值是 Promise 对象
+      const result = axios({
+        methods: 'GET',
+        url: 'http://www.liulongbin.top:3006/api/getbooks',
+        // GET传参params   URL中的查询参数
+        params:{
+          id: 1
+        },
+        // POST传参data    请求体参数
+        data: {}
+      }).then(function (result) {
+        console.log(result)
+      })
+
+      // 2. 发送post请求
+      document.querySelector('#btnPost').addEventListener('click', async function () {
+        // 如果调用的某个方法的返回值是Promise实例，则前面可以加await
+        // await 只能用在被async "修饰"的方法中
+        const result = await axios({
+          methods: 'POST',
+          url: 'http://www.liulongbin.top:3006/api/post',
+          data: {
+            name: 'zs',
+            age: 20
+          }
+        })
+
+      })
+
+      // 3. 解构赋值 发送GET请求
+      document.querySelector('#btnGet').addEventListener('click', async function () {
+        // 解构赋值时，使用 : 进行重命名
+        const {data: res} = await axios({
+          methods: 'GET',
+          url: 'http://www.liulongbin.top:3006/api/getbooks'
+        })
+      })
+
+      // console.log(res.data)
+
+
+    </script>
+
+  </body>
+</html>

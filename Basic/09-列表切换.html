@@ -9,9 +9,10 @@
 
     <div id="app">
       <!-- v-for遍历数组元素 -->
-      <!-- v-for 中通常与属性:key连用，以便跟踪每个结点的身份，从而重新排列现有元素，:key存储唯一的属性值     -->
+      <!-- v-for 中通常与属性:key连用，以便跟踪每个结点的身份，从而重新排列现有元素，:key存储唯一的属性值，key尽可能是字符串或数字类型  -->
+      <!--   key值最好还是用对象的id值来标记，用索引，如果循环增删操作，可能会出现问题   -->
       <ul>
-        <li v-for="(item, index) in items" :key="index">
+        <li v-for="(item, index) in items" :key="item.id">
           {{index}} - {{item.message}}
         </li>
       </ul>
@@ -30,8 +31,8 @@
         el: '#app',
         data: {
           items: [
-            {message: 'Foo'},
-            {message: 'Boo'}
+            {id: "1", message: 'Foo'},
+            {id: "2", message: 'Boo'}
           ],
           obj: {
             title: 'Vue Demo',

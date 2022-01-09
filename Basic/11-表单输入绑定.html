@@ -10,9 +10,10 @@
     <div id="app">
       <!--
             v-model 修饰符：
-              .lazy   添加 lazy 修饰符，从而转为在 change 事件_之后_进行同步
-              .number 添加 number 修饰符，自动将用户的输入值转为数值类型
+              .lazy   添加 lazy 修饰符，在"change"时而非"input"时更新，中间过程中不限时
+              .number 添加 number 修饰符，自动将用户的输入值（字符串）转为数值类型
               .trim   添加 trim 修饰符， 自动过滤用户输入的首尾空白字符
+                      - v-model.trim = ""
           -->
 
       <!--  文本  -->
@@ -54,14 +55,22 @@
         <option>C</option>
       </select>
       <span>Selected: {{ selected }}</span>
+      <hr>
+
+      <!--  number修饰符    -->
+      <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = <span>{{ n1 + n2 }}</span>
 
     </div>
 
     <script>
       // v-model 实行双向数据绑定，负责监听用户的输入事件以更新数据
+      // v-bind 是单向的数据绑定： ---> 数据源发生变化，页面上的数据显示也会发生变化   --   页面数据变化，不会改变数据源model的数据变化
+      // v-model 只有添加在 表单数据才有意义： input  textarea  select
       new Vue({
         el: '#app',
         data: {
+          n1: 1,
+          n2: 2,
           message: '',
           textareaMessage: '',
           checkedNames: [],

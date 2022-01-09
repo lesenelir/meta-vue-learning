@@ -17,6 +17,15 @@
       </p>
       <p>{{answer}}</p>
 
+      <hr>
+      <!--  ---------------------------------------    -->
+      <!--   监听器最基本使用   -->
+      <input type="text" v-model="username">
+      <input type="text" v-model="name">
+
+      <input type="text" v-model="info.age">
+
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
@@ -28,7 +37,13 @@
         el: '#app',
         data: {
           question: '',
-          answer: 'I cannot give you an answer until you ask a question!'
+          answer: 'I cannot give you an answer until you ask a question!',
+          username: '',
+          name: 'lesenelir',
+          info: {       // 深度侦听
+            id: '20203426',
+            age: 18,
+          }
         },
         // 侦听器，用于观察和响应Vue实例上的数据变动， 响应数据的变化
         // 侦听器用于场合：当需要数据变化时执行异步或开销较大的时候
@@ -37,7 +52,33 @@
           question: function () {
             this.answer = "Waiting for you to stop trying..."
             this.debouncedGetAnswer()
+          },
+          // 监听什么data里的数据，就把该数据当作watch里的方法名
+          // 1. 定义方法格式的侦听器
+          username(newVal, oldVal) {
+            console.log(newVal, oldVal)
+          },
+          // 2. 定义对象格式的侦听器
+          name: {
+            handler(newVal, oldVal) { // 侦听器的处理函数， 侦听到name变化就自动触发
+              console.log(newVal, oldVal)
+            },
+            // 让侦听器自动触发一次 immediate选项的默认值是false
+            immediate: true
+          },
+          // 3. 深度侦听
+          info: {
+            handler(newVal, oldVal) {
+              console.log(newVal, oldVal)
+            },
+            // 开启深度侦听，只要对象中任何一个属性发生变化，都会进行侦听
+            deep: true
+          },
+          // 4. 子属性监听
+          'info.age'(newVal) {
+            console.log(newVal)
           }
+
         },
         create: function () {
           this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
@@ -60,8 +101,6 @@
           }
         }
       })
-
-
 
     </script>
 
