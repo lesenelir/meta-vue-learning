@@ -1,4 +1,4 @@
-# demo-1
+# BasicVueCli-Demo01
 
 ## Project setup
 ```
