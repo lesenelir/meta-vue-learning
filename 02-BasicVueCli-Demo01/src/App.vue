@@ -28,8 +28,6 @@
       <h1 ref="myH1">测试ref属性 ref直接获取DOM元素</h1>
       <button @click="refChange">点击打印切换样式</button>
 
-
-
     </div>
   </div>
 </template>

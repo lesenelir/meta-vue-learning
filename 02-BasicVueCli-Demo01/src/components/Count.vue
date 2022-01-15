@@ -1,7 +1,7 @@
 <template>
   <div>
     <h5>Count组件</h5>
-    <p>count的值是{{ init }}</p>
+    <p>count的值是{{ count }}</p>
     <button @click="count += 1">+1</button>
   </div>
 </template>

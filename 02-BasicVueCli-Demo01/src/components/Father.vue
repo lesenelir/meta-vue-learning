@@ -36,6 +36,7 @@ export default {
     }
   },
   methods: {
+    // val 存储子组件通过 $emit向父组件发射自定义事件的子组件中的数据
     getNewCount(val) {
       this.countFromSon = val
     }
