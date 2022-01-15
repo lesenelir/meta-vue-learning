@@ -11,6 +11,7 @@
         <h3>一首歌</h3>
       </template>
 
+      <!--   作用域插槽是接受到的值是对象形式   -->
       <template v-slot:content="obj">
         <div>
           <p>{{obj}}</p>
