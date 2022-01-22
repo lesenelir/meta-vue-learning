@@ -1,10 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>组件的注册</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <my-component></my-component>
+      <component-a></component-a>
+<!--      <Father></Father>-->
+    </div>
+
+    <script type="module">
+      // vue 实例代码
+
+      // 全局注册组件
+      // 【注意：全局注册组件的行为一定要在根Vue实例创建之前发生】
+      Vue.component('my-component', {
+        template: `<h3>全局注册组件</h3>`
+      })
+
+      // 局部注册组件
+      // componentA是一个对象形式
+      const componentA = Vue.extend({
+        template: `<h3>局部注册组件</h3>`
+      })
+
+      import Father from "./components/Father"
+
+      var vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods: {
+
+        },
+        components: {
+          'component-a': componentA,
+          Father
+        }
+
+
+      })
+
+
+    </script>
+
+
+  </body>
 </html>

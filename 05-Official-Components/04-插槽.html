@@ -1,10 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>插槽</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+
+      <base-layout>
+
+        <template v-slot:header="obj">
+          {{obj}} ---- {{obj.msg}}
+        </template>
+
+        <template v-slot:main="{iUser}">
+
+        </template>
+
+        <template v-slot:footer>
+          <p>插槽覆盖内容</p>
+        </template>
+
+      </base-layout>
+
+    </div>
+
+    <script>
+
+      Vue.component('base-layout', {
+        data() {
+          return {
+            userInfo: {
+              name: 'lesenelir',
+              age: 18
+            }
+          }
+        },
+        // slot标签有name属性是属于具名插槽   ；    为预留slot标签有对应的属性值是属于作用域插槽
+        template: `
+          <div class="container">
+            <header>
+              <slot name="header" msg="标题"></slot>
+            </header>
+            <main>
+              <slot name="main" :iUser="userInfo"></slot>
+            </main>
+            <footer>
+              <slot name="footer"></slot>
+            </footer>
+          </div>
+        `
+      })
+
+    let vm = new Vue({
+      el: '#app',
+
+    })
+
+    </script>
+
+  </body>
 </html>

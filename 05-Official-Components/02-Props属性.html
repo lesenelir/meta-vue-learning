@@ -1,10 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Props属性</title>
+    <script src="../resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <!--  组件的props自定义属性，是该标签的属性attribute    -->
+      <!--  【注意：】 当自定义属性props的名字是驼峰法命名时，对应组件标签的属性命名要以"-"分割   -->
+      <component-a
+              v-for="post in posts"
+              :key="post.id"
+              :title="post.bookTitle"
+              :id="post.bookID"
+              :is-published="post.published"
+              :test-array="[1, 2, 3]"
+      ></component-a>
+    </div>
+
+    <script>
+      // props 属性是组件 的 自定义属性 Attribute
+
+      // 局部组件 , 名字为componentA
+      const componentA = Vue.extend({
+        props: {    // 设置props属性为对象形式，规定属性的值类型
+          //
+          title: String,
+          id: Number,
+          isPublished: Boolean,
+          testArray: Array
+        },
+        // template 模块内可以调用显示props属性的内容
+        template: `<h3>
+        {{ id }} ----- {{ title }} ----- {{ isPublished }} ----- {{ testArray }}
+        </h3>`
+      })
+
+      // prop验证： 为组件的prop指定验证要求；定制prop的验证方式，可以为props属性中的值提供一个带有验证需求的对象，而不是一个字符串数组
+      // 当prop验证失败后，Vue开发环境构建版本会产生一个控制台警告
+      Vue.component('my-component', {
+        props: {
+          // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+          propA: Number,
+          // 多个可能的类型
+          propB: [String, Number],
+          // 必填的字符串
+          propC: {
+            type: String,
+            required: true
+          },
+          // 带有默认值的数字
+          propD: {
+            type: Number,
+            default: 100
+          },
+          // 带有默认值的对象
+          propE: {
+            type: Object,
+            // 对象或数组默认值必须从一个工厂函数获取
+            default: function () {
+              return {message: 'hello'}
+            }
+          },
+          // 自定义验证函数
+          propF: {
+            validator: function (value) {
+              // 这个值必须匹配下列字符串中的一个
+              return ['success', 'warning', 'danger'].indexOf(value) !== -1
+            }
+          }
+        }
+      })
+
+      // props是单向数据流： 父级prop的更新会向下流动到子组件中
+      // 即，父组件的数据可以通过props 传递给 子组件（子组件中定义props 接受父组件的数据）
+      // 并且 子组件接受到的props 不应该进行修改，如果需要修改则在子组件中重新定义 data数据进行修改
+
+      /*
+      *      变更props属性方法： ----- 定义本地的data属性，并把该属性的值指向props值
+      *
+      *       props: ['initialCounter'],
+              data: function () {
+                return {
+                  counter: this.initialCounter
+                }
+              }
+      * */
+
+      let vm = new Vue({
+        el: '#app',
+        data: {
+          posts: [
+            {bookID: 1, bookTitle: "Edge Computing", published: true},
+            {bookID: 2, bookTitle: "Vue Learning", published: false}
+          ]
+        },
+        methods: {},
+        components: {
+          'component-a': componentA,
+        }
+      })
+
+    </script>
+
+  </body>
 </html>
