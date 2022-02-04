@@ -48,7 +48,7 @@
   <hr>
   <!-- 测试Vue3中祖父和孙子之间的数据通信 -->
   <div class="grandFather">
-    <h3>我是祖父组件（祖先） ----- {{ name }} -- {{ price }} </h3>
+    <h3>我是祖父组件（祖先） ----- {{ carname }} -- {{ price }} </h3>
     <Father></Father>
   </div>
 
@@ -165,7 +165,7 @@ export default {
     // 祖先和孙子之间进行 通信
 
     let car = reactive({
-      name: '奔驰',
+      carname: '奔驰',
       price: '40W'
     })
     provide('sonCar', car)   // 注入， 给自己的后代组件传入数据

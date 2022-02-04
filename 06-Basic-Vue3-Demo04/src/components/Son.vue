@@ -1,6 +1,6 @@
 <template>
   <div class="son">
-    <h3>我是Son组件（孙子） ----- {{ car.name }} --- {{ car.price }} </h3>
+    <h3>我是Son组件（孙子） ----- {{ car.carname }} --- {{ car.price }} </h3>
   </div>
 </template>
 
